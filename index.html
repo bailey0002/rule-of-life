@@ -420,12 +420,49 @@
         text-align: center;
     }
     
-    .day-label {
-        font-size: 11px;
-        color: #a0aec0;
-        font-weight: 400;
+    .journal-entry {
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 16px;
+        padding: 16px;
+        margin-bottom: 16px;
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 
+            0 6px 20px rgba(0, 0, 0, 0.04),
+            0 3px 8px rgba(0, 0, 0, 0.03),
+            inset 0 1px 2px rgba(255, 255, 255, 0.7);
+    }
+
+    .journal-date {
+        font-weight: 500;
+        color: #e91e63;
+        margin-bottom: 12px;
+        font-size: 14px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .journal-section {
+        margin-bottom: 12px;
+    }
+
+    .journal-label {
+        font-weight: 500;
+        color: #4a5568;
+        font-size: 12px;
         letter-spacing: 0.5px;
         text-transform: uppercase;
+        margin-bottom: 4px;
+    }
+
+    .journal-text {
+        color: #718096;
+        font-size: 14px;
+        line-height: 1.4;
+        background: rgba(255, 255, 255, 0.3);
+        padding: 8px;
+        border-radius: 8px;
+        font-style: italic;
     }
 </style>
 ```
@@ -442,6 +479,7 @@
     <div class="tabs">
         <button class="tab active" data-tab="today">Today</button>
         <button class="tab" data-tab="week">Week</button>
+        <button class="tab" data-tab="journal">Journal</button>
         <button class="tab" data-tab="verses">Verses</button>
     </div>
 
@@ -513,10 +551,35 @@
         </div>
     </div>
 
+    <!-- Journal Tab -->
+    <div id="journal" class="tab-content">
+        <div class="soft-card">
+            <div class="section-title">My Spiritual Journey</div>
+            <button class="soft-button soft-button-small" onclick="exportJournal()" style="margin-bottom: 15px;">Export All Entries</button>
+            <div id="journal-entries"></div>
+        </div>
+    </div>
+
     <!-- Verses Tab -->
     <div id="verses" class="tab-content">
         <div class="soft-card">
-            <div class="section-title">Scripture</div>
+            <div class="section-title">Scripture by Practice</div>
+            <div class="input-group">
+                <select id="practice-filter" onchange="filterVerses()" style="width: 100%; padding: 8px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.5); background: rgba(255,255,255,0.7);">
+                    <option value="all">All Practices</option>
+                    <option value="prayer">Prayer</option>
+                    <option value="bible">Bible Study</option>
+                    <option value="meditation">Meditation</option>
+                    <option value="worship">Worship</option>
+                    <option value="fellowship">Fellowship</option>
+                    <option value="service">Service</option>
+                    <option value="witness">Witness</option>
+                    <option value="generosity">Generosity</option>
+                    <option value="rest">Rest</option>
+                    <option value="obedience">Obedience</option>
+                    <option value="gratitude">Gratitude</option>
+                </select>
+            </div>
             <div id="verses-list"></div>
         </div>
     </div>
@@ -622,6 +685,7 @@
         
         if (tabName === 'week') loadWeekView();
         if (tabName === 'verses') loadVersesView();
+        if (tabName === 'journal') loadJournalView();
     }
 
     // Auto-save functionality
@@ -713,27 +777,117 @@
 
     function loadVersesView() {
         const container = document.getElementById('verses-list');
+        const selectedPractice = document.getElementById('practice-filter').value;
         
         if (Object.keys(versesData).length === 0) {
             container.innerHTML = '<p>Loading verses...</p>';
             return;
         }
 
-        let allVerses = [];
-        Object.keys(versesData).forEach(practice => {
-            versesData[practice].forEach(verse => {
-                allVerses.push({...verse, practice});
+        let content = '';
+        
+        if (selectedPractice === 'all') {
+            // Show all practices with their verses
+            Object.keys(versesData).forEach(practice => {
+                content += `
+                    <div class="practice-category">
+                        <div class="category-title">${practice.charAt(0).toUpperCase() + practice.slice(1)}</div>
+                        ${versesData[practice].slice(0, 5).map(verse => `
+                            <div class="verse-card">
+                                <div class="verse-ref">${verse.ref}</div>
+                                <div class="verse-text">"${verse.text}"</div>
+                                <button class="soft-button soft-button-small" onclick="copyVerseText('${verse.text.replace(/'/g, "\\'")}', '${verse.ref}')">Copy</button>
+                            </div>
+                        `).join('')}
+                        ${versesData[practice].length > 5 ? `<p style="text-align: center; color: #a0aec0; font-size: 12px;">+${versesData[practice].length - 5} more verses</p>` : ''}
+                    </div>
+                `;
             });
-        });
+        } else {
+            // Show selected practice verses
+            if (versesData[selectedPractice]) {
+                content = versesData[selectedPractice].map(verse => `
+                    <div class="verse-card">
+                        <div class="verse-ref">${verse.ref}</div>
+                        <div class="verse-text">"${verse.text}"</div>
+                        <button class="soft-button soft-button-small" onclick="copyVerseText('${verse.text.replace(/'/g, "\\'")}', '${verse.ref}')">Copy</button>
+                    </div>
+                `).join('');
+            }
+        }
 
-        // Show first 10 verses with practice labels
-        container.innerHTML = allVerses.slice(0, 10).map(verse => `
-            <div class="verse-card">
-                <div class="verse-ref">${verse.ref} - ${verse.practice}</div>
-                <div class="verse-text">"${verse.text}"</div>
-                <button class="soft-button soft-button-small" onclick="copyVerseText('${verse.text}', '${verse.ref}')">Copy</button>
-            </div>
-        `).join('');
+        container.innerHTML = content;
+    }
+
+    function filterVerses() {
+        loadVersesView();
+    }
+
+    function loadJournalView() {
+        const container = document.getElementById('journal-entries');
+        const entries = load('dailyEntries', {});
+        const dates = Object.keys(entries).sort().reverse(); // Most recent first
+        
+        if (dates.length === 0) {
+            container.innerHTML = '<p style="text-align: center; color: #a0aec0; font-style: italic;">No journal entries yet. Start by filling out today\'s reflections!</p>';
+            return;
+        }
+
+        container.innerHTML = dates.map(date => {
+            const entry = entries[date];
+            const formattedDate = new Date(date + 'T00:00:00').toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+
+            let sections = '';
+            
+            if (entry.scripture) sections += `<div class="journal-section"><div class="journal-label">Scripture & Meditation</div><div class="journal-text">${entry.scripture}</div></div>`;
+            if (entry.prayer) sections += `<div class="journal-section"><div class="journal-label">Prayer & Dedication</div><div class="journal-text">${entry.prayer}</div></div>`;
+            if (entry.work) sections += `<div class="journal-section"><div class="journal-label">Work & Calling</div><div class="journal-text">${entry.work}</div></div>`;
+            if (entry.service) sections += `<div class="journal-section"><div class="journal-label">Service & Love</div><div class="journal-text">${entry.service}</div></div>`;
+            if (entry.reflection) sections += `<div class="journal-section"><div class="journal-label">Reflection</div><div class="journal-text">${entry.reflection}</div></div>`;
+            if (entry.gratitude) sections += `<div class="journal-section"><div class="journal-label">Gratitude</div><div class="journal-text">${entry.gratitude}</div></div>`;
+
+            if (!sections) return '';
+
+            return `
+                <div class="journal-entry">
+                    <div class="journal-date">${formattedDate}${entry.committed ? ' ✓ Committed' : ''}</div>
+                    ${sections}
+                </div>
+            `;
+        }).filter(entry => entry).join('');
+    }
+
+    function exportJournal() {
+        const entries = load('dailyEntries', {});
+        const weeklyChecks = load('weeklyChecks', {});
+        
+        const exportData = {
+            spiritualJourney: {
+                exportDate: new Date().toISOString(),
+                dailyEntries: entries,
+                weeklyPractices: weeklyChecks,
+                appName: "ABIDE - Daily Faith Tracker"
+            }
+        };
+
+        // Create downloadable file
+        const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `spiritual-journey-${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        showToast('Journal exported! 📄✨');
     }
 
     function copyDailyVerse() {
