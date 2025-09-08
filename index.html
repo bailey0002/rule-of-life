@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta charset="UTF-8">
@@ -9,520 +8,554 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@200;300;400;500;600;700&family=SF+Pro+Text:wght@300;400;500;600&display=swap');
 
-```
-    * {
-        box-sizing: border-box;
-        -webkit-tap-highlight-color: transparent;
-    }
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-    body {
-        margin: 0;
-        padding: 20px;
-        font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
-        background: #0d0d0d;
-        min-height: 100vh;
-        color: #2a2a2a;
-    }
-    
-    .container {
-        max-width: 380px;
-        margin: 0 auto;
-        background: #acbcc4;
-        border-radius: 32px;
-        padding: 32px;
-        box-shadow: 
-            0 40px 100px rgba(0, 0, 0, 0.8),
-            0 20px 50px rgba(0, 0, 0, 0.6),
-            0 8px 20px rgba(0, 0, 0, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        border: 1px solid #c4d0d4;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .container::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    }
-    
-    .header {
-        text-align: center;
-        margin-bottom: 32px;
-    }
-    
-    .header h1 {
-        font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 2.2rem;
-        font-weight: 200;
-        margin: 0;
-        color: #d7cecb;
-        letter-spacing: -0.02em;
-        text-transform: uppercase;
-    }
-    
-    .header p {
-        margin: 8px 0 0 0;
-        color: rgba(0, 0, 0, 0.5);
-        font-weight: 400;
-        font-size: 0.85rem;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-    }
-    
-    .tabs {
-        display: flex;
-        gap: 8px;
-        margin-bottom: 24px;
-        background: rgba(0, 0, 0, 0.05);
-        padding: 6px;
-        border-radius: 20px;
-        backdrop-filter: blur(20px);
-        box-shadow: 
-            inset 0 2px 8px rgba(0, 0, 0, 0.08),
-            inset 0 1px 2px rgba(0, 0, 0, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-    
-    .tab {
-        flex: 1;
-        padding: 12px 8px;
-        border: none;
-        background: transparent;
-        border-radius: 16px;
-        font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
-        font-weight: 500;
-        font-size: 0.75rem;
-        color: rgba(0, 0, 0, 0.4);
-        cursor: pointer;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        text-align: center;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-    }
-    
-    .tab.active {
-        background: #f8f6f4;
-        color: #2a2a2a;
-        box-shadow: 
-            0 8px 25px rgba(0, 0, 0, 0.15),
-            0 4px 12px rgba(0, 0, 0, 0.1),
-            inset 0 1px 0 rgba(255, 255, 255, 0.9);
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        transform: translateY(-2px);
-    }
-    
-    .tab-content {
-        display: none;
-    }
-    
-    .tab-content.active {
-        display: block;
-    }
-    
-    .soft-card {
-        background: #f8f6f4;
-        border-radius: 24px;
-        padding: 24px;
-        margin-bottom: 20px;
-        box-shadow: 
-            0 20px 50px rgba(0, 0, 0, 0.15),
-            0 10px 25px rgba(0, 0, 0, 0.08),
-            inset 0 1px 0 rgba(255, 255, 255, 0.9);
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .soft-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 
-            0 28px 70px rgba(0, 0, 0, 0.2),
-            0 14px 35px rgba(0, 0, 0, 0.12),
-            inset 0 1px 0 rgba(255, 255, 255, 1);
-    }
-    
-    .section-title {
-        font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 1rem;
-        font-weight: 500;
-        color: #2a2a2a;
-        margin-bottom: 16px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-    }
-    
-    .input-group {
-        margin-bottom: 16px;
-    }
-    
-    .input-label {
-        display: block;
-        font-weight: 400;
-        margin-bottom: 8px;
-        color: #666666;
-        font-size: 0.8rem;
-        letter-spacing: 0.3px;
-        text-transform: uppercase;
-    }
-    
-    textarea {
-        width: 100%;
-        padding: 16px;
-        background: rgba(255, 255, 255, 0.7);
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        border-radius: 16px;
-        color: #2a2a2a;
-        font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 0.9rem;
-        font-weight: 400;
-        resize: none;
-        min-height: 80px;
-        backdrop-filter: blur(15px);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 
-            inset 0 2px 8px rgba(0, 0, 0, 0.06),
-            inset 0 1px 2px rgba(0, 0, 0, 0.08);
-    }
-    
-    textarea:focus {
-        outline: none;
-        border-color: rgba(172, 196, 196, 0.6);
-        background: rgba(255, 255, 255, 0.9);
-        box-shadow: 
-            0 0 0 3px rgba(172, 196, 196, 0.15),
-            0 4px 16px rgba(172, 196, 196, 0.2),
-            inset 0 1px 4px rgba(0, 0, 0, 0.04);
-        transform: translateY(-2px);
-    }
-    
-    textarea::placeholder {
-        color: rgba(0, 0, 0, 0.3);
-        font-weight: 300;
-    }
-    
-    .soft-button {
-        width: 100%;
-        padding: 16px;
-        background: linear-gradient(145deg, #acc4c4 0%, #94acac 100%);
-        border: 1px solid #c4d0d4;
-        border-radius: 20px;
-        color: #0a0a0a;
-        font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
-        font-weight: 500;
-        font-size: 0.9rem;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        cursor: pointer;
-        backdrop-filter: blur(15px);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 
-            0 16px 40px rgba(172, 196, 196, 0.3),
-            0 8px 20px rgba(0, 0, 0, 0.15),
-            inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    }
-    
-    .soft-button:hover {
-        transform: translateY(-3px);
-        box-shadow: 
-            0 24px 60px rgba(172, 196, 196, 0.4),
-            0 12px 30px rgba(0, 0, 0, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.4);
-    }
-    
-    .soft-button:active {
-        transform: translateY(-1px);
-        box-shadow: 
-            0 8px 20px rgba(172, 196, 196, 0.25),
-            inset 0 2px 4px rgba(172, 196, 196, 0.4);
-    }
-    
-    .soft-button-small {
-        width: auto;
-        padding: 10px 16px;
-        font-size: 0.75rem;
-        display: inline-block;
-        margin-right: 8px;
-        margin-bottom: 0;
-        background: linear-gradient(145deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6));
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        color: #2a2a2a;
-        box-shadow: 
-            0 8px 20px rgba(0, 0, 0, 0.08),
-            0 4px 10px rgba(0, 0, 0, 0.06),
-            inset 0 1px 1px rgba(255, 255, 255, 0.8);
-    }
-    
-    .verse-card {
-        background: rgba(255, 255, 255, 0.8);
-        border-radius: 18px;
-        padding: 18px;
-        margin-bottom: 16px;
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.6);
-        box-shadow: 
-            0 12px 30px rgba(0, 0, 0, 0.08),
-            0 6px 15px rgba(0, 0, 0, 0.05),
-            inset 0 1px 2px rgba(255, 255, 255, 0.9);
-        transition: all 0.3s ease;
-    }
-    
-    .verse-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 
-            0 16px 40px rgba(0, 0, 0, 0.12),
-            0 8px 20px rgba(0, 0, 0, 0.08),
-            inset 0 1px 2px rgba(255, 255, 255, 1);
-    }
-    
-    .verse-ref {
-        font-weight: 500;
-        color: #acc4c4;
-        margin-bottom: 10px;
-        font-size: 0.8rem;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-    }
-    
-    .verse-text {
-        font-style: italic;
-        margin-bottom: 12px;
-        line-height: 1.5;
-        color: #2a2a2a;
-        font-size: 0.9rem;
-        font-weight: 400;
-    }
-    
-    .practice-item {
-        background: rgba(255, 255, 255, 0.7);
-        border-radius: 18px;
-        padding: 16px;
-        margin-bottom: 12px;
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-shadow: 
-            0 8px 20px rgba(0, 0, 0, 0.06),
-            0 4px 10px rgba(0, 0, 0, 0.04),
-            inset 0 1px 2px rgba(255, 255, 255, 0.8);
-        transition: all 0.3s ease;
-    }
-    
-    .practice-item:hover {
-        transform: translateY(-2px);
-        box-shadow: 
-            0 12px 30px rgba(0, 0, 0, 0.1),
-            0 6px 15px rgba(0, 0, 0, 0.06),
-            inset 0 1px 2px rgba(255, 255, 255, 0.9);
-    }
-    
-    .practice-name {
-        font-weight: 500;
-        color: #2a2a2a;
-        font-size: 0.85rem;
-        letter-spacing: 0.3px;
-    }
-    
-    .practice-type {
-        font-size: 0.7rem;
-        color: rgba(0, 0, 0, 0.4);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        font-weight: 400;
-    }
-    
-    .check-grid {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 6px;
-        margin-top: 8px;
-    }
-    
-    .check-btn {
-        width: 32px;
-        height: 32px;
-        border: 2px solid rgba(255, 255, 255, 0.6);
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.8);
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: transparent;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        font-size: 14px;
-        backdrop-filter: blur(15px);
-        box-shadow: 
-            0 6px 15px rgba(0, 0, 0, 0.06),
-            0 3px 8px rgba(0, 0, 0, 0.04),
-            inset 0 1px 2px rgba(255, 255, 255, 0.9);
-    }
-    
-    .check-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 
-            0 8px 20px rgba(0, 0, 0, 0.08),
-            0 4px 12px rgba(0, 0, 0, 0.06),
-            inset 0 1px 2px rgba(255, 255, 255, 1);
-    }
-    
-    .check-btn.checked {
-        background: linear-gradient(145deg, #acc4c4, #94acac);
-        border-color: #acc4c4;
-        color: #0a0a0a;
-        box-shadow: 
-            0 8px 20px rgba(172, 196, 196, 0.4),
-            0 4px 12px rgba(172, 196, 196, 0.3),
-            inset 0 1px 2px rgba(255, 255, 255, 0.4);
-    }
-    
-    .date-display {
-        background: rgba(255, 255, 255, 0.8);
-        border-radius: 18px;
-        padding: 16px;
-        margin-bottom: 20px;
-        text-align: center;
-        font-weight: 500;
-        color: #2a2a2a;
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.6);
-        box-shadow: 
-            0 12px 30px rgba(0, 0, 0, 0.08),
-            0 6px 15px rgba(0, 0, 0, 0.05),
-            inset 0 1px 2px rgba(255, 255, 255, 0.9);
-        font-size: 0.9rem;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-    }
-    
-    .toast {
-        position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%) translateY(-100%);
-        background: linear-gradient(145deg, #acc4c4, #94acac);
-        color: #0a0a0a;
-        padding: 12px 20px;
-        border-radius: 16px;
-        backdrop-filter: blur(20px);
-        z-index: 1000;
-        transition: transform 0.3s ease;
-        font-weight: 500;
-        font-size: 0.8rem;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        box-shadow: 
-            0 16px 40px rgba(172, 196, 196, 0.4),
-            0 8px 20px rgba(172, 196, 196, 0.3),
-            inset 0 1px 2px rgba(255, 255, 255, 0.3);
-    }
-    
-    .toast.show {
-        transform: translateX(-50%) translateY(0);
-    }
-    
-    .week-header {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 6px;
-        margin-bottom: 12px;
-        text-align: center;
-    }
-    
-    .day-label {
-        font-size: 0.7rem;
-        color: rgba(0, 0, 0, 0.4);
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-    
-    .journal-entry {
-        background: rgba(255, 255, 255, 0.7);
-        border-radius: 18px;
-        padding: 20px;
-        margin-bottom: 18px;
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        box-shadow: 
-            0 10px 25px rgba(0, 0, 0, 0.06),
-            0 5px 12px rgba(0, 0, 0, 0.04),
-            inset 0 1px 2px rgba(255, 255, 255, 0.8);
-    }
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0d0d0d;
+            min-height: 100vh;
+            color: #2a2a2a;
+        }
+        
+        .container {
+            max-width: 380px;
+            margin: 0 auto;
+            background: #acbcc4;
+            border-radius: 32px;
+            padding: 32px;
+            box-shadow: 
+                0 40px 100px rgba(0, 0, 0, 0.8),
+                0 20px 50px rgba(0, 0, 0, 0.6),
+                0 8px 20px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid #c4d0d4;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .header h1 {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 2.2rem;
+            font-weight: 200;
+            margin: 0;
+            color: #d7cecb;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+        }
+        
+        .header p {
+            margin: 8px 0 0 0;
+            color: rgba(0, 0, 0, 0.5);
+            font-weight: 400;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 6px;
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            box-shadow: 
+                inset 0 2px 8px rgba(0, 0, 0, 0.08),
+                inset 0 1px 2px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 12px 8px;
+            border: none;
+            background: transparent;
+            border-radius: 16px;
+            font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 500;
+            font-size: 0.75rem;
+            color: rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        .tab.active {
+            background: #f8f6f4;
+            color: #2a2a2a;
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.15),
+                0 4px 12px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .soft-card {
+            background: #f8f6f4;
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.15),
+                0 10px 25px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .soft-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 28px 70px rgba(0, 0, 0, 0.2),
+                0 14px 35px rgba(0, 0, 0, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
+        }
+        
+        .section-title {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #2a2a2a;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        .input-group {
+            margin-bottom: 16px;
+        }
+        
+        .input-label {
+            display: block;
+            font-weight: 400;
+            margin-bottom: 8px;
+            color: #666666;
+            font-size: 0.8rem;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 16px;
+            color: #2a2a2a;
+            font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+            resize: none;
+            min-height: 80px;
+            backdrop-filter: blur(15px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                inset 0 2px 8px rgba(0, 0, 0, 0.06),
+                inset 0 1px 2px rgba(0, 0, 0, 0.08);
+            /* Fix: Remove any margin and ensure consistent box model */
+            margin: 0;
+            box-sizing: border-box;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: rgba(172, 196, 196, 0.6);
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 
+                0 0 0 3px rgba(172, 196, 196, 0.15),
+                0 4px 16px rgba(172, 196, 196, 0.2),
+                inset 0 1px 4px rgba(0, 0, 0, 0.04);
+            transform: translateY(-2px);
+        }
+        
+        textarea::placeholder {
+            color: rgba(0, 0, 0, 0.3);
+            font-weight: 300;
+        }
+        
+        .soft-button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(145deg, #acc4c4 0%, #94acac 100%);
+            border: 1px solid #c4d0d4;
+            border-radius: 20px;
+            color: #0a0a0a;
+            font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            backdrop-filter: blur(15px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 16px 40px rgba(172, 196, 196, 0.3),
+                0 8px 20px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            /* Fix: Remove any margin and ensure consistent box model */
+            margin: 0;
+            box-sizing: border-box;
+        }
+        
+        .soft-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 24px 60px rgba(172, 196, 196, 0.4),
+                0 12px 30px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+        
+        .soft-button:active {
+            transform: translateY(-1px);
+            box-shadow: 
+                0 8px 20px rgba(172, 196, 196, 0.25),
+                inset 0 2px 4px rgba(172, 196, 196, 0.4);
+        }
+        
+        .soft-button-small {
+            width: auto;
+            padding: 10px 16px;
+            font-size: 0.75rem;
+            display: inline-block;
+            margin-right: 8px;
+            margin-bottom: 0;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6));
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: #2a2a2a;
+            box-shadow: 
+                0 8px 20px rgba(0, 0, 0, 0.08),
+                0 4px 10px rgba(0, 0, 0, 0.06),
+                inset 0 1px 1px rgba(255, 255, 255, 0.8);
+        }
+        
+        .verse-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 16px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 
+                0 12px 30px rgba(0, 0, 0, 0.08),
+                0 6px 15px rgba(0, 0, 0, 0.05),
+                inset 0 1px 2px rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+        }
+        
+        .verse-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 16px 40px rgba(0, 0, 0, 0.12),
+                0 8px 20px rgba(0, 0, 0, 0.08),
+                inset 0 1px 2px rgba(255, 255, 255, 1);
+        }
+        
+        .verse-ref {
+            font-weight: 500;
+            color: #acc4c4;
+            margin-bottom: 10px;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        .verse-text {
+            font-style: italic;
+            margin-bottom: 12px;
+            line-height: 1.5;
+            color: #2a2a2a;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+        
+        .practice-item {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 18px;
+            padding: 16px;
+            margin-bottom: 12px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            box-shadow: 
+                0 8px 20px rgba(0, 0, 0, 0.06),
+                0 4px 10px rgba(0, 0, 0, 0.04),
+                inset 0 1px 2px rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            /* Fix: Ensure proper alignment */
+            gap: 16px;
+        }
+        
+        .practice-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 12px 30px rgba(0, 0, 0, 0.1),
+                0 6px 15px rgba(0, 0, 0, 0.06),
+                inset 0 1px 2px rgba(255, 255, 255, 0.9);
+        }
+        
+        .practice-name {
+            font-weight: 500;
+            color: #2a2a2a;
+            font-size: 0.85rem;
+            letter-spacing: 0.3px;
+        }
+        
+        .practice-type {
+            font-size: 0.7rem;
+            color: rgba(0, 0, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 400;
+        }
+        
+        .check-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+            margin-top: 8px;
+            /* Fix: Ensure minimum width and proper alignment */
+            min-width: 240px;
+            flex-shrink: 0;
+        }
+        
+        .check-btn {
+            width: 32px;
+            height: 32px;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: transparent;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 14px;
+            backdrop-filter: blur(15px);
+            box-shadow: 
+                0 6px 15px rgba(0, 0, 0, 0.06),
+                0 3px 8px rgba(0, 0, 0, 0.04),
+                inset 0 1px 2px rgba(255, 255, 255, 0.9);
+            /* Fix: Ensure consistent sizing */
+            box-sizing: border-box;
+            flex-shrink: 0;
+            margin: 0;
+        }
+        
+        .check-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 8px 20px rgba(0, 0, 0, 0.08),
+                0 4px 12px rgba(0, 0, 0, 0.06),
+                inset 0 1px 2px rgba(255, 255, 255, 1);
+        }
+        
+        .check-btn.checked {
+            background: linear-gradient(145deg, #acc4c4, #94acac);
+            border-color: #acc4c4;
+            color: #0a0a0a;
+            box-shadow: 
+                0 8px 20px rgba(172, 196, 196, 0.4),
+                0 4px 12px rgba(172, 196, 196, 0.3),
+                inset 0 1px 2px rgba(255, 255, 255, 0.4);
+        }
+        
+        .date-display {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 18px;
+            padding: 16px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 500;
+            color: #2a2a2a;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 
+                0 12px 30px rgba(0, 0, 0, 0.08),
+                0 6px 15px rgba(0, 0, 0, 0.05),
+                inset 0 1px 2px rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100%);
+            background: linear-gradient(145deg, #acc4c4, #94acac);
+            color: #0a0a0a;
+            padding: 12px 20px;
+            border-radius: 16px;
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            font-weight: 500;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 
+                0 16px 40px rgba(172, 196, 196, 0.4),
+                0 8px 20px rgba(172, 196, 196, 0.3),
+                inset 0 1px 2px rgba(255, 255, 255, 0.3);
+        }
+        
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .week-header {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+            margin-bottom: 12px;
+            text-align: center;
+            /* Fix: Match the check-grid width */
+            min-width: 240px;
+            margin-left: auto;
+        }
+        
+        .day-label {
+            font-size: 0.7rem;
+            color: rgba(0, 0, 0, 0.4);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            /* Fix: Match check button width */
+            width: 32px;
+            text-align: center;
+        }
+        
+        .journal-entry {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 18px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 
+                0 10px 25px rgba(0, 0, 0, 0.06),
+                0 5px 12px rgba(0, 0, 0, 0.04),
+                inset 0 1px 2px rgba(255, 255, 255, 0.8);
+        }
 
-    .journal-date {
-        font-weight: 500;
-        color: #acc4c4;
-        margin-bottom: 14px;
-        font-size: 0.85rem;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-    }
+        .journal-date {
+            font-weight: 500;
+            color: #acc4c4;
+            margin-bottom: 14px;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
 
-    .journal-section {
-        margin-bottom: 14px;
-    }
+        .journal-section {
+            margin-bottom: 14px;
+        }
 
-    .journal-label {
-        font-weight: 500;
-        color: #2a2a2a;
-        font-size: 0.75rem;
-        letter-spacing: 0.3px;
-        text-transform: uppercase;
-        margin-bottom: 6px;
-    }
+        .journal-label {
+            font-weight: 500;
+            color: #2a2a2a;
+            font-size: 0.75rem;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
 
-    .journal-text {
-        color: #4a4a4a;
-        font-size: 0.85rem;
-        line-height: 1.4;
-        background: rgba(255, 255, 255, 0.5);
-        padding: 10px;
-        border-radius: 10px;
-        font-style: italic;
-    }
+        .journal-text {
+            color: #4a4a4a;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 10px;
+            border-radius: 10px;
+            font-style: italic;
+        }
 
-    .category-title {
-        font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 1.1rem;
-        font-weight: 500;
-        color: #acc4c4;
-        margin: 20px 0 12px 0;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-    }
+        .category-title {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #acc4c4;
+            margin: 20px 0 12px 0;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
 
-    select {
-        width: 100%;
-        padding: 12px;
-        border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        background: rgba(255, 255, 255, 0.8);
-        color: #2a2a2a;
-        font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 0.85rem;
-        backdrop-filter: blur(15px);
-        box-shadow: 
-            inset 0 2px 8px rgba(0, 0, 0, 0.06),
-            inset 0 1px 2px rgba(0, 0, 0, 0.08);
-    }
+        select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.8);
+            color: #2a2a2a;
+            font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 0.85rem;
+            backdrop-filter: blur(15px);
+            box-shadow: 
+                inset 0 2px 8px rgba(0, 0, 0, 0.06),
+                inset 0 1px 2px rgba(0, 0, 0, 0.08);
+            /* Fix: Ensure consistent box model */
+            box-sizing: border-box;
+            margin: 0;
+        }
 
-    select:focus {
-        outline: none;
-        border-color: rgba(172, 196, 196, 0.6);
-        background: rgba(255, 255, 255, 0.9);
-    }
-</style>
-```
+        select:focus {
+            outline: none;
+            border-color: rgba(172, 196, 196, 0.6);
+            background: rgba(255, 255, 255, 0.9);
+        }
 
+        /* Fix: Ensure practice info section doesn't interfere with alignment */
+        .practice-info {
+            flex: 1;
+            min-width: 0; /* Allow text to wrap if needed */
+        }
+
+        /* Fix: Ensure check container aligns properly */
+        .check-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -531,449 +564,153 @@
             <p>Daily Faith Tracker</p>
         </div>
 
-```
-    <div class="tabs">
-        <button class="tab active" data-tab="today">Today</button>
-        <button class="tab" data-tab="week">Week</button>
-        <button class="tab" data-tab="journal">Journal</button>
-        <button class="tab" data-tab="verses">Verses</button>
+        <div class="tabs">
+            <button class="tab active" data-tab="today">Today</button>
+            <button class="tab" data-tab="week">Week</button>
+            <button class="tab" data-tab="journal">Journal</button>
+            <button class="tab" data-tab="verses">Verses</button>
+        </div>
+
+        <!-- Today Tab -->
+        <div id="today" class="tab-content active">
+            <div class="date-display" id="today-date"></div>
+            
+            <div class="soft-card">
+                <div class="section-title">Daily Verse</div>
+                <div class="verse-card" id="daily-verse-card">
+                    <div class="verse-ref" id="daily-verse-ref">Loading...</div>
+                    <div class="verse-text" id="daily-verse-text">Loading verse...</div>
+                    <button class="soft-button soft-button-small" onclick="copyDailyVerse()">Copy</button>
+                </div>
+            </div>
+
+            <div class="soft-card">
+                <div class="section-title">Morning</div>
+                <div class="input-group">
+                    <div class="input-label">Scripture & Meditation</div>
+                    <textarea id="scripture" placeholder="What is God speaking to you today?"></textarea>
+                </div>
+                <div class="input-group">
+                    <div class="input-label">Prayer & Dedication</div>
+                    <textarea id="prayer" placeholder="Morning prayers and dedication..."></textarea>
+                </div>
+            </div>
+
+            <div class="soft-card">
+                <div class="section-title">Daily Living</div>
+                <div class="input-group">
+                    <div class="input-label">Work & Calling</div>
+                    <textarea id="work" placeholder="Living out your calling today..."></textarea>
+                </div>
+                <div class="input-group">
+                    <div class="input-label">Service & Love</div>
+                    <textarea id="service" placeholder="Serving others today..."></textarea>
+                </div>
+            </div>
+
+            <div class="soft-card">
+                <div class="section-title">Evening</div>
+                <div class="input-group">
+                    <div class="input-label">Reflection</div>
+                    <textarea id="reflection" placeholder="How did you see God today?"></textarea>
+                </div>
+                <div class="input-group">
+                    <div class="input-label">Gratitude</div>
+                    <textarea id="gratitude" placeholder="What are you grateful for today?"></textarea>
+                </div>
+                <button class="soft-button" onclick="commitDay()">Commit Day to the Lord</button>
+            </div>
+        </div>
+
+        <!-- Week Tab -->
+        <div id="week" class="tab-content">
+            <div class="soft-card">
+                <div class="section-title">This Week</div>
+                <div class="week-header">
+                    <div class="day-label">Sun</div>
+                    <div class="day-label">Mon</div>
+                    <div class="day-label">Tue</div>
+                    <div class="day-label">Wed</div>
+                    <div class="day-label">Thu</div>
+                    <div class="day-label">Fri</div>
+                    <div class="day-label">Sat</div>
+                </div>
+                <div id="week-practices"></div>
+            </div>
+        </div>
+
+        <!-- Journal Tab -->
+        <div id="journal" class="tab-content">
+            <div class="soft-card">
+                <div class="section-title">My Spiritual Journey</div>
+                <button class="soft-button soft-button-small" onclick="exportJournal()" style="margin-bottom: 15px;">Export All Entries</button>
+                <div id="journal-entries"></div>
+            </div>
+        </div>
+
+        <!-- Verses Tab -->
+        <div id="verses" class="tab-content">
+            <div class="soft-card">
+                <div class="section-title">Scripture by Practice</div>
+                <div class="input-group">
+                    <select id="practice-filter" onchange="filterVerses()">
+                        <option value="all">All Practices</option>
+                        <option value="prayer">Prayer</option>
+                        <option value="bible">Bible Study</option>
+                        <option value="meditation">Meditation</option>
+                        <option value="worship">Worship</option>
+                        <option value="fellowship">Fellowship</option>
+                        <option value="service">Service</option>
+                        <option value="witness">Witness</option>
+                        <option value="generosity">Generosity</option>
+                        <option value="rest">Rest</option>
+                        <option value="obedience">Obedience</option>
+                        <option value="gratitude">Gratitude</option>
+                    </select>
+                </div>
+                <div id="verses-list"></div>
+            </div>
+        </div>
     </div>
 
-    <!-- Today Tab -->
-    <div id="today" class="tab-content active">
-        <div class="date-display" id="today-date"></div>
-        
-        <div class="soft-card">
-            <div class="section-title">Daily Verse</div>
-            <div class="verse-card" id="daily-verse-card">
-                <div class="verse-ref" id="daily-verse-ref">Loading...</div>
-                <div class="verse-text" id="daily-verse-text">Loading verse...</div>
-                <button class="soft-button soft-button-small" onclick="copyDailyVerse()">Copy</button>
-            </div>
-        </div>
+    <script>
+        // Data
+        const practices = [
+            {id: 'prayer', name: 'Prayer', type: 'core'},
+            {id: 'bible', name: 'Bible Study', type: 'core'},
+            {id: 'meditation', name: 'Meditation', type: 'core'},
+            {id: 'worship', name: 'Worship', type: 'core'},
+            {id: 'fellowship', name: 'Fellowship', type: 'outer'},
+            {id: 'service', name: 'Service', type: 'outer'},
+            {id: 'witness', name: 'Witness', type: 'outer'},
+            {id: 'generosity', name: 'Generosity', type: 'outer'},
+            {id: 'rest', name: 'Rest', type: 'outer'},
+            {id: 'obedience', name: 'Obedience', type: 'outer'},
+            {id: 'gratitude', name: 'Gratitude', type: 'outer'}
+        ];
 
-        <div class="soft-card">
-            <div class="section-title">Morning</div>
-            <div class="input-group">
-                <div class="input-label">Scripture & Meditation</div>
-                <textarea id="scripture" placeholder="What is God speaking to you today?"></textarea>
-            </div>
-            <div class="input-group">
-                <div class="input-label">Prayer & Dedication</div>
-                <textarea id="prayer" placeholder="Morning prayers and dedication..."></textarea>
-            </div>
-        </div>
+        let versesData = {};
+        let currentDailyVerse = {};
 
-        <div class="soft-card">
-            <div class="section-title">Daily Living</div>
-            <div class="input-group">
-                <div class="input-label">Work & Calling</div>
-                <textarea id="work" placeholder="Living out your calling today..."></textarea>
-            </div>
-            <div class="input-group">
-                <div class="input-label">Service & Love</div>
-                <textarea id="service" placeholder="Serving others today..."></textarea>
-            </div>
-        </div>
-
-        <div class="soft-card">
-            <div class="section-title">Evening</div>
-            <div class="input-group">
-                <div class="input-label">Reflection</div>
-                <textarea id="reflection" placeholder="How did you see God today?"></textarea>
-            </div>
-            <div class="input-group">
-                <div class="input-label">Gratitude</div>
-                <textarea id="gratitude" placeholder="What are you grateful for today?"></textarea>
-            </div>
-            <button class="soft-button" onclick="commitDay()">Commit Day to the Lord</button>
-        </div>
-    </div>
-
-    <!-- Week Tab -->
-    <div id="week" class="tab-content">
-        <div class="soft-card">
-            <div class="section-title">This Week</div>
-            <div class="week-header">
-                <div class="day-label">Sun</div>
-                <div class="day-label">Mon</div>
-                <div class="day-label">Tue</div>
-                <div class="day-label">Wed</div>
-                <div class="day-label">Thu</div>
-                <div class="day-label">Fri</div>
-                <div class="day-label">Sat</div>
-            </div>
-            <div id="week-practices"></div>
-        </div>
-    </div>
-
-    <!-- Journal Tab -->
-    <div id="journal" class="tab-content">
-        <div class="soft-card">
-            <div class="section-title">My Spiritual Journey</div>
-            <button class="soft-button soft-button-small" onclick="exportJournal()" style="margin-bottom: 15px;">Export All Entries</button>
-            <div id="journal-entries"></div>
-        </div>
-    </div>
-
-    <!-- Verses Tab -->
-    <div id="verses" class="tab-content">
-        <div class="soft-card">
-            <div class="section-title">Scripture by Practice</div>
-            <div class="input-group">
-                <select id="practice-filter" onchange="filterVerses()">
-                    <option value="all">All Practices</option>
-                    <option value="prayer">Prayer</option>
-                    <option value="bible">Bible Study</option>
-                    <option value="meditation">Meditation</option>
-                    <option value="worship">Worship</option>
-                    <option value="fellowship">Fellowship</option>
-                    <option value="service">Service</option>
-                    <option value="witness">Witness</option>
-                    <option value="generosity">Generosity</option>
-                    <option value="rest">Rest</option>
-                    <option value="obedience">Obedience</option>
-                    <option value="gratitude">Gratitude</option>
-                </select>
-            </div>
-            <div id="verses-list"></div>
-        </div>
-    </div>
-</div>
-
-<script>
-    // Data
-    const practices = [
-        {id: 'prayer', name: 'Prayer', type: 'core'},
-        {id: 'bible', name: 'Bible Study', type: 'core'},
-        {id: 'meditation', name: 'Meditation', type: 'core'},
-        {id: 'worship', name: 'Worship', type: 'core'},
-        {id: 'fellowship', name: 'Fellowship', type: 'outer'},
-        {id: 'service', name: 'Service', type: 'outer'},
-        {id: 'witness', name: 'Witness', type: 'outer'},
-        {id: 'generosity', name: 'Generosity', type: 'outer'},
-        {id: 'rest', name: 'Rest', type: 'outer'},
-        {id: 'obedience', name: 'Obedience', type: 'outer'},
-        {id: 'gratitude', name: 'Gratitude', type: 'outer'}
-    ];
-
-    let versesData = {};
-    let currentDailyVerse = {};
-
-    // Sample verses fallback
-    const fallbackVerses = {
-        prayer: [
-            {ref: 'Matthew 6:9', text: 'Our Father in heaven, hallowed be your name.'},
-            {ref: '1 Thessalonians 5:17', text: 'Pray without ceasing.'}
-        ],
-        bible: [
-            {ref: 'Psalm 119:105', text: 'Your word is a lamp to my feet and a light to my path.'},
-            {ref: '2 Timothy 3:16', text: 'All Scripture is breathed out by God and profitable for teaching.'}
-        ]
-    };
-
-    // Load verses
-    function loadVerses() {
-        // Use fallback verses for demo
-        versesData = fallbackVerses;
-        currentDailyVerse = {
-            ref: 'Micah 6:8',
-            text: 'He has told you, O man, what is good; and what does the Lord require of you but to do justice, and to love kindness, and to walk humbly with your God?'
+        // Sample verses fallback
+        const fallbackVerses = {
+            prayer: [
+                {ref: 'Matthew 6:9', text: 'Our Father in heaven, hallowed be your name.'},
+                {ref: '1 Thessalonians 5:17', text: 'Pray without ceasing.'}
+            ],
+            bible: [
+                {ref: 'Psalm 119:105', text: 'Your word is a lamp to my feet and a light to my path.'},
+                {ref: '2 Timothy 3:16', text: 'All Scripture is breathed out by God and profitable for teaching.'}
+            ]
         };
-        updateDailyVerseDisplay();
-    }
 
-    function updateDailyVerseDisplay() {
-        document.getElementById('daily-verse-ref').textContent = currentDailyVerse.ref;
-        document.getElementById('daily-verse-text').textContent = `"${currentDailyVerse.text}"`;
-    }
-
-    // Storage functions
-    function save(key, data) {
-        localStorage.setItem(key, JSON.stringify(data));
-    }
-
-    function load(key, defaultValue = {}) {
-        try {
-            return JSON.parse(localStorage.getItem(key)) || defaultValue;
-        } catch {
-            return defaultValue;
-        }
-    }
-
-    function getToday() {
-        return new Date().toISOString().split('T')[0];
-    }
-
-    function showToast(message) {
-        const toast = document.createElement('div');
-        toast.className = 'toast';
-        toast.textContent = message;
-        document.body.appendChild(toast);
-        
-        setTimeout(() => toast.classList.add('show'), 100);
-        setTimeout(() => {
-            toast.classList.remove('show');
-            setTimeout(() => document.body.removeChild(toast), 300);
-        }, 2000);
-    }
-
-    // Tab management
-    function showTab(tabName) {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-        
-        document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
-        document.getElementById(tabName).classList.add('active');
-        
-        if (tabName === 'week') loadWeekView();
-        if (tabName === 'verses') loadVersesView();
-        if (tabName === 'journal') loadJournalView();
-    }
-
-    // Auto-save functionality
-    function setupAutoSave() {
-        ['scripture', 'prayer', 'work', 'service', 'reflection', 'gratitude'].forEach(field => {
-            const el = document.getElementById(field);
-            if (el) {
-                el.addEventListener('input', debounce(() => {
-                    const entries = load('dailyEntries', {});
-                    const today = getToday();
-                    if (!entries[today]) entries[today] = {};
-                    entries[today][field] = el.value;
-                    save('dailyEntries', entries);
-                }, 500));
-            }
-        });
-    }
-
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
+        // Load verses
+        function loadVerses() {
+            // Use fallback verses for demo
+            versesData = fallbackVerses;
+            currentDailyVerse = {
+                ref: 'Micah 6:8',
+                text: 'He has told you, O man, what is good; and what does the Lord require of you but to do justice, and to love kindness, and to walk humbly with your God?'
             };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-
-    function loadTodayData() {
-        const entries = load('dailyEntries', {});
-        const today = getToday();
-        const todayData = entries[today] || {};
-        
-        Object.keys(todayData).forEach(field => {
-            const el = document.getElementById(field);
-            if (el) el.value = todayData[field] || '';
-        });
-    }
-
-    function loadWeekView() {
-        const container = document.getElementById('week-practices');
-        const weekData = load('weeklyChecks', {});
-        const today = new Date();
-        const week = [];
-        
-        for (let i = 0; i < 7; i++) {
-            const date = new Date(today);
-            date.setDate(today.getDate() - today.getDay() + i);
-            week.push(date.toISOString().split('T')[0]);
+            updateDailyVerseDisplay();
         }
-        
-        container.innerHTML = practices.map(practice => {
-            const checkButtons = week.map((date, i) => {
-                const isChecked = weekData[practice.id] && weekData[practice.id][date];
-                return `<button class="check-btn ${isChecked ? 'checked' : ''}" onclick="togglePractice('${practice.id}', '${date}', this)">✓</button>`;
-            }).join('');
-            
-            return `
-                <div class="practice-item">
-                    <div>
-                        <div class="practice-name">${practice.name}</div>
-                        <div class="practice-type">${practice.type}</div>
-                    </div>
-                    <div class="check-grid">
-                        ${checkButtons}
-                    </div>
-                </div>
-            `;
-        }).join('');
-    }
-
-    function togglePractice(practiceId, date, btn) {
-        const weekData = load('weeklyChecks', {});
-        if (!weekData[practiceId]) weekData[practiceId] = {};
-        
-        weekData[practiceId][date] = !weekData[practiceId][date];
-        btn.classList.toggle('checked');
-        
-        save('weeklyChecks', weekData);
-        
-        if (navigator.vibrate) {
-            navigator.vibrate(50);
-        }
-        
-        showToast('Updated');
-    }
-
-    function loadVersesView() {
-        const container = document.getElementById('verses-list');
-        const selectedPractice = document.getElementById('practice-filter').value;
-        
-        if (Object.keys(versesData).length === 0) {
-            container.innerHTML = '<p style="text-align: center; color: rgba(0,0,0,0.4); font-style: italic;">Loading verses...</p>';
-            return;
-        }
-
-        let content = '';
-        
-        if (selectedPractice === 'all') {
-            Object.keys(versesData).forEach(practice => {
-                content += `
-                    <div class="category-title">${practice.charAt(0).toUpperCase() + practice.slice(1)}</div>
-                    ${versesData[practice].map(verse => `
-                        <div class="verse-card">
-                            <div class="verse-ref">${verse.ref}</div>
-                            <div class="verse-text">"${verse.text}"</div>
-                            <button class="soft-button soft-button-small" onclick="copyVerseText('${verse.text.replace(/'/g, "\\'")}', '${verse.ref}')">Copy</button>
-                        </div>
-                    `).join('')}
-                `;
-            });
-        } else {
-            if (versesData[selectedPractice]) {
-                content = versesData[selectedPractice].map(verse => `
-                    <div class="verse-card">
-                        <div class="verse-ref">${verse.ref}</div>
-                        <div class="verse-text">"${verse.text}"</div>
-                        <button class="soft-button soft-button-small" onclick="copyVerseText('${verse.text.replace(/'/g, "\\'")}', '${verse.ref}')">Copy</button>
-                    </div>
-                `).join('');
-            }
-        }
-
-        container.innerHTML = content || '<p style="text-align: center; color: rgba(0,0,0,0.4); font-style: italic;">No verses available for this practice.</p>';
-    }
-
-    function filterVerses() {
-        loadVersesView();
-    }
-
-    function loadJournalView() {
-        const container = document.getElementById('journal-entries');
-        const entries = load('dailyEntries', {});
-        const dates = Object.keys(entries).sort().reverse();
-        
-        if (dates.length === 0) {
-            container.innerHTML = '<p style="text-align: center; color: rgba(0,0,0,0.4); font-style: italic;">No journal entries yet. Start by filling out today\'s reflections!</p>';
-            return;
-        }
-
-        container.innerHTML = dates.map(date => {
-            const entry = entries[date];
-            const formattedDate = new Date(date + 'T00:00:00').toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
-
-            let sections = '';
-            
-            if (entry.scripture) sections += `<div class="journal-section"><div class="journal-label">Scripture & Meditation</div><div class="journal-text">${entry.scripture}</div></div>`;
-            if (entry.prayer) sections += `<div class="journal-section"><div class="journal-label">Prayer & Dedication</div><div class="journal-text">${entry.prayer}</div></div>`;
-            if (entry.work) sections += `<div class="journal-section"><div class="journal-label">Work & Calling</div><div class="journal-text">${entry.work}</div></div>`;
-            if (entry.service) sections += `<div class="journal-section"><div class="journal-label">Service & Love</div><div class="journal-text">${entry.service}</div></div>`;
-            if (entry.reflection) sections += `<div class="journal-section"><div class="journal-label">Reflection</div><div class="journal-text">${entry.reflection}</div></div>`;
-            if (entry.gratitude) sections += `<div class="journal-section"><div class="journal-label">Gratitude</div><div class="journal-text">${entry.gratitude}</div></div>`;
-
-            if (!sections) return '';
-
-            return `
-                <div class="journal-entry">
-                    <div class="journal-date">${formattedDate}${entry.committed ? ' ✓ Committed' : ''}</div>
-                    ${sections}
-                </div>
-            `;
-        }).filter(entry => entry).join('');
-    }
-
-    function exportJournal() {
-        const entries = load('dailyEntries', {});
-        const weeklyChecks = load('weeklyChecks', {});
-        
-        const exportData = {
-            spiritualJourney: {
-                exportDate: new Date().toISOString(),
-                dailyEntries: entries,
-                weeklyPractices: weeklyChecks,
-                appName: "ABIDE - Daily Faith Tracker"
-            }
-        };
-
-        const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `spiritual-journey-${new Date().toISOString().split('T')[0]}.json`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        
-        showToast('Journal exported!');
-    }
-
-    function copyDailyVerse() {
-        const text = `"${currentDailyVerse.text}" — ${currentDailyVerse.ref}`;
-        navigator.clipboard.writeText(text);
-        showToast('Verse copied!');
-    }
-
-    function copyVerseText(text, ref) {
-        navigator.clipboard.writeText(`"${text}" — ${ref}`);
-        showToast('Verse copied!');
-    }
-
-    function commitDay() {
-        const entries = load('dailyEntries', {});
-        const today = getToday();
-        if (!entries[today]) entries[today] = {};
-        entries[today].committed = new Date().toISOString();
-        save('dailyEntries', entries);
-        
-        if (navigator.vibrate) {
-            navigator.vibrate([100, 50, 100]);
-        }
-        
-        showToast('Day committed to the Lord!');
-    }
-
-    // Initialize app
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('today-date').textContent = 
-            new Date().toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                month: 'long', 
-                day: 'numeric' 
-            });
-        
-        loadVerses();
-        setupAutoSave();
-        loadTodayData();
-        
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                const tabName = this.getAttribute('data-tab');
-                showTab(tabName);
-            });
-        });
-    });
-</script>
-```
-
-</body>
-</html>
